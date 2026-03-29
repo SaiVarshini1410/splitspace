@@ -1,24 +1,35 @@
 <div class="setup-container">
   <div class="setup-card">
     <div class="logo-section">
-      <div class="logo-icon">
-        <span>S</span>
-      </div>
+        <div class="logo-icon">
+            <svg width="28" height="28" viewBox="0 0 30 30" fill="none">
+            <path d="M15 3L3 13h4v12h7V18h2v7h7V13h4L15 3z" fill="white" opacity="0.95"/>
+            <line x1="15" y1="8" x2="15" y2="25" stroke="#e8723a" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+        </div>
       <h2>Set up your space</h2>
       <p>Create a new household or join an existing one</p>
     </div>
 
     <div class="options">
       <a routerLink="/create-household" class="option-card">
-        <div class="option-icon">+</div>
-        <h3>Create Household</h3>
-        <p>Start fresh and invite your roommates</p>
+        <div class="option-icon">
+          <mat-icon>add_home</mat-icon>
+        </div>
+        <div>
+          <h3>Create Household</h3>
+          <p>Start fresh and invite your roommates</p>
+        </div>
       </a>
 
       <a routerLink="/join-household" class="option-card">
-        <div class="option-icon">→</div>
-        <h3>Join Household</h3>
-        <p>Got an invite code? Enter it here</p>
+        <div class="option-icon">
+          <mat-icon>group_add</mat-icon>
+        </div>
+        <div>
+          <h3>Join Household</h3>
+          <p>Got an invite code? Enter it here</p>
+        </div>
       </a>
     </div>
   </div>

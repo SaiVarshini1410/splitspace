@@ -28,10 +28,8 @@
     background-color: var(--ss-primary);
     margin-bottom: 12px;
 
-    span {
-      color: white;
-      font-weight: 500;
-      font-size: 20px;
+    img {
+      display: block;
     }
   }
 
@@ -78,9 +76,13 @@
     border-radius: 10px;
     background-color: var(--ss-primary);
     color: white;
-    font-size: 20px;
-    font-weight: 500;
     flex-shrink: 0;
+
+    mat-icon {
+      font-size: 22px;
+      width: 22px;
+      height: 22px;
+    }
   }
 
   h3 {

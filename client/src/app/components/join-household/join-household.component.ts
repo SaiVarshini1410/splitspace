@@ -4,6 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { HouseholdService } from '../../services/household.service';
 
 @Component({
@@ -15,6 +16,7 @@ import { HouseholdService } from '../../services/household.service';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatIconModule,
   ],
   templateUrl: './join-household.component.html',
   styleUrl: './join-household.component.scss',
@@ -46,4 +48,4 @@ export class JoinHouseholdComponent {
       });
     }
   }
-} 
+}

@@ -27,11 +27,12 @@
     border-radius: 12px;
     background-color: var(--ss-primary);
     margin-bottom: 12px;
+    color: white;
 
-    span {
-      color: white;
-      font-weight: 500;
-      font-size: 20px;
+    mat-icon {
+      font-size: 24px;
+      width: 24px;
+      height: 24px;
     }
   }
 
