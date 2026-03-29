@@ -4,6 +4,7 @@ require('dotenv').config();
 const pool = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 const householdRoutes = require('./routes/householdRoutes');
+const choreRoutes = require('./routes/choreRoutes');
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/household', householdRoutes);
+app.use('/api/chores', choreRoutes);
 
 // Test route
 app.get('/', (req, res) => {

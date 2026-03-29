@@ -6,6 +6,7 @@ import { CreateHouseholdComponent } from './components/create-household/create-h
 import { JoinHouseholdComponent } from './components/join-household/join-household.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ChoresComponent } from './components/chores/chores.component';
 import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
@@ -21,6 +22,7 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       { path: 'dashboard', component: DashboardComponent },
+      { path: 'chores', component: ChoresComponent },
     ],
   },
 ];

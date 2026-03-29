@@ -1,0 +1,86 @@
+<div class="chores-page">
+  <div class="page-header">
+    <div>
+      <h1>Chores</h1>
+      <p class="subtitle">Manage your household chores</p>
+    </div>
+    <button mat-raised-button color="primary" (click)="toggleForm()">
+      <mat-icon>{{ showForm ? 'close' : 'add' }}</mat-icon>
+      {{ showForm ? 'Cancel' : 'Add Chore' }}
+    </button>
+  </div>
+
+  @if (showForm) {
+    <div class="create-form-card">
+      <h3>Create a new chore</h3>
+      <form [formGroup]="choreForm" (ngSubmit)="onCreate()">
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Chore name</mat-label>
+            <input matInput formControlName="name" placeholder="e.g. Dishes, Vacuum" />
+          </mat-form-field>
+        </div>
+
+        <div class="form-row two-columns">
+          <mat-form-field appearance="outline">
+            <mat-label>Difficulty</mat-label>
+            <mat-select formControlName="difficulty">
+              @for (option of difficultyOptions; track option.value) {
+                <mat-option [value]="option.value">{{ option.label }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Frequency</mat-label>
+            <mat-select formControlName="frequency">
+              @for (option of frequencyOptions; track option.value) {
+                <mat-option [value]="option.value">{{ option.label }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        @if (errorMessage) {
+          <p class="error-message">{{ errorMessage }}</p>
+        }
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="choreForm.invalid">
+          Create Chore
+        </button>
+      </form>
+    </div>
+  }
+
+  <div class="chores-list">
+    @if (chores.length === 0) {
+      <div class="empty-state">
+        <mat-icon>task_alt</mat-icon>
+        <p>No chores yet</p>
+        <span>Click "Add Chore" to create your first one</span>
+      </div>
+    } @else {
+      @for (chore of chores; track chore.id) {
+        <div class="chore-card">
+          <div class="chore-info">
+            <span class="chore-name">{{ chore.name }}</span>
+            <div class="chore-meta">
+              <span class="chore-frequency">{{ chore.frequency }}</span>
+              <span class="chore-creator">Added by {{ chore.created_by_name }}</span>
+            </div>
+          </div>
+          <div class="chore-actions">
+            <div class="chore-difficulty">
+              @for (dot of [1,2,3,4,5]; track dot) {
+                <span class="dot" [class.active]="dot <= chore.difficulty"></span>
+              }
+            </div>
+            <button class="delete-btn" (click)="onDelete(chore.id)">
+              <mat-icon>delete_outline</mat-icon>
+            </button>
+          </div>
+        </div>
+      }
+    }
+  </div>
+</div>
