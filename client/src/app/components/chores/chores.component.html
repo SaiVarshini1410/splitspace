@@ -52,35 +52,81 @@
     </div>
   }
 
-  <div class="chores-list">
-    @if (chores.length === 0) {
+  <div class="section">
+    <h2 class="section-title">Today's assignments</h2>
+
+    @if (assignments.length === 0) {
       <div class="empty-state">
-        <mat-icon>task_alt</mat-icon>
-        <p>No chores yet</p>
-        <span>Click "Add Chore" to create your first one</span>
+        <mat-icon>event_available</mat-icon>
+        <p>No assignments for today</p>
+        <span>Create chores and they'll be assigned automatically</span>
       </div>
     } @else {
-      @for (chore of chores; track chore.id) {
-        <div class="chore-card">
-          <div class="chore-info">
-            <span class="chore-name">{{ chore.name }}</span>
-            <div class="chore-meta">
-              <span class="chore-frequency">{{ chore.frequency }}</span>
-              <span class="chore-creator">Added by {{ chore.created_by_name }}</span>
+      <div class="assignments-list">
+        @for (assignment of assignments; track assignment.id) {
+          <div class="assignment-card" [class.completed]="assignment.completed_at">
+            <div class="assignment-left">
+              @if (assignment.completed_at) {
+                <div class="checkbox checked">
+                  <mat-icon>check</mat-icon>
+                </div>
+              } @else {
+                <div class="checkbox" (click)="onComplete(assignment.id)"></div>
+              }
+              <div class="assignment-info">
+                <span class="assignment-name">{{ assignment.chore_name }}</span>
+                <div class="assignment-meta">
+                  <span class="assigned-to" [class.is-you]="assignment.assigned_to === currentUserId">
+                    {{ assignment.assigned_to === currentUserId ? 'Assigned to you' : assignment.assigned_to_name }}
+                  </span>
+                  <span class="assignment-frequency">{{ assignment.frequency }}</span>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="chore-actions">
             <div class="chore-difficulty">
               @for (dot of [1,2,3,4,5]; track dot) {
-                <span class="dot" [class.active]="dot <= chore.difficulty"></span>
+                <span class="dot" [class.active]="dot <= assignment.difficulty"></span>
               }
             </div>
-            <button class="delete-btn" (click)="onDelete(chore.id)">
-              <mat-icon>delete_outline</mat-icon>
-            </button>
           </div>
-        </div>
-      }
+        }
+      </div>
     }
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">All chores</h2>
+
+    <div class="chores-list">
+      @if (chores.length === 0) {
+        <div class="empty-state">
+          <mat-icon>task_alt</mat-icon>
+          <p>No chores yet</p>
+          <span>Click "Add Chore" to create your first one</span>
+        </div>
+      } @else {
+        @for (chore of chores; track chore.id) {
+          <div class="chore-card">
+            <div class="chore-info">
+              <span class="chore-name">{{ chore.name }}</span>
+              <div class="chore-meta">
+                <span class="chore-frequency">{{ chore.frequency }}</span>
+                <span class="chore-creator">Added by {{ chore.created_by_name }}</span>
+              </div>
+            </div>
+            <div class="chore-actions">
+              <div class="chore-difficulty">
+                @for (dot of [1,2,3,4,5]; track dot) {
+                  <span class="dot" [class.active]="dot <= chore.difficulty"></span>
+                }
+              </div>
+              <button class="delete-btn" (click)="onDelete(chore.id)">
+                <mat-icon>delete_outline</mat-icon>
+              </button>
+            </div>
+          </div>
+        }
+      }
+    </div>
   </div>
 </div>

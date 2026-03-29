@@ -104,12 +104,84 @@
   }
 }
 
+.assignments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.assignment-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px;
+  background-color: var(--ss-surface-light);
+  border-radius: 8px;
+  transition: opacity 0.15s;
+
+  &.completed {
+    opacity: 0.5;
+
+    .assignment-name {
+      text-decoration: line-through;
+    }
+  }
+}
+
+.checkbox {
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  border: 1.5px solid var(--ss-border);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.15s;
+
+  &:hover {
+    border-color: var(--ss-primary);
+  }
+
+  &.checked {
+    background-color: var(--ss-primary);
+    border-color: var(--ss-primary);
+    cursor: default;
+
+    mat-icon {
+      font-size: 13px;
+      width: 13px;
+      height: 13px;
+      color: white;
+    }
+  }
+}
+
+.assignment-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  .assignment-name {
+    color: var(--ss-text);
+    font-size: 13px;
+  }
+
+  .assigned-to {
+    color: var(--ss-muted);
+    font-size: 11px;
+  }
+}
+
 .empty-state {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding: 2rem 1rem;
   text-align: center;
+  flex: 1;
 
   mat-icon {
     font-size: 32px;

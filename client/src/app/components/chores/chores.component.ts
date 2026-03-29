@@ -5,7 +5,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { ChoreService, Chore } from '../../services/chore.service';
+import { ChoreService, Chore, ChoreAssignment } from '../../services/chore.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-chores',
@@ -23,8 +24,10 @@ import { ChoreService, Chore } from '../../services/chore.service';
 })
 export class ChoresComponent implements OnInit {
   chores: Chore[] = [];
+  assignments: ChoreAssignment[] = [];
   showForm: boolean = false;
   errorMessage: string = '';
+  currentUserId: number = 0;
 
   choreForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -47,10 +50,16 @@ export class ChoresComponent implements OnInit {
     { value: 'monthly', label: 'Monthly' },
   ];
 
-  constructor(private choreService: ChoreService) {}
+  constructor(
+    private choreService: ChoreService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
+    const user = this.authService.getUser();
+    this.currentUserId = user?.id || 0;
     this.loadChores();
+    this.generateAndLoadAssignments();
   }
 
   loadChores(): void {
@@ -60,6 +69,27 @@ export class ChoresComponent implements OnInit {
       },
       error: (error) => {
         this.errorMessage = error.error.message || 'Failed to load chores.';
+      },
+    });
+  }
+
+  generateAndLoadAssignments(): void {
+    // First generate any needed assignments, then fetch today's
+    this.choreService.generate().subscribe({
+      next: () => {
+        this.loadAssignments();
+      },
+      error: () => {
+        // Even if generate fails, try loading existing assignments
+        this.loadAssignments();
+      },
+    });
+  }
+
+  loadAssignments(): void {
+    this.choreService.getToday().subscribe({
+      next: (response) => {
+        this.assignments = response.assignments;
       },
     });
   }
@@ -77,6 +107,8 @@ export class ChoresComponent implements OnInit {
           this.chores.unshift(response.chore);
           this.choreForm.reset({ name: '', difficulty: 1, frequency: 'weekly' });
           this.showForm = false;
+          // Regenerate assignments so the new chore gets assigned
+          this.generateAndLoadAssignments();
         },
         error: (error) => {
           this.errorMessage = error.error.message || 'Failed to create chore.';
@@ -85,18 +117,33 @@ export class ChoresComponent implements OnInit {
     }
   }
 
-  getDifficultyLabel(value: number): string {
-    return this.difficultyOptions.find((d) => d.value === value)?.label || '';
-  }
-
   onDelete(choreId: number): void {
     this.choreService.delete(choreId).subscribe({
       next: () => {
         this.chores = this.chores.filter((c) => c.id !== choreId);
+        this.assignments = this.assignments.filter((a) => a.chore_id !== choreId);
       },
       error: (error) => {
         this.errorMessage = error.error.message || 'Failed to delete chore.';
       },
     });
+  }
+
+  onComplete(assignmentId: number): void {
+    this.choreService.complete(assignmentId).subscribe({
+      next: () => {
+        const assignment = this.assignments.find((a) => a.id === assignmentId);
+        if (assignment) {
+          assignment.completed_at = new Date().toISOString();
+        }
+      },
+      error: (error) => {
+        this.errorMessage = error.error.message || 'Failed to complete chore.';
+      },
+    });
+  }
+
+  getDifficultyLabel(value: number): string {
+    return this.difficultyOptions.find((d) => d.value === value)?.label || '';
   }
 }

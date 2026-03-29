@@ -15,7 +15,7 @@
   <div class="stats-grid">
     <div class="stat-card">
       <span class="stat-label">Your chores today</span>
-      <span class="stat-value">0</span>
+      <span class="stat-value">{{ myIncompleteCount }}</span>
     </div>
     <div class="stat-card">
       <span class="stat-label">You're owed</span>
@@ -30,11 +30,31 @@
   <div class="content-grid">
     <div class="content-card">
       <h3>Today's chores</h3>
-      <div class="empty-state">
-        <mat-icon>task_alt</mat-icon>
-        <p>No chores assigned yet</p>
-        <span>Create chores in the Chores section</span>
-      </div>
+      @if (assignments.length === 0) {
+        <div class="empty-state">
+          <mat-icon>task_alt</mat-icon>
+          <p>No chores assigned yet</p>
+          <span>Create chores in the Chores section</span>
+        </div>
+      } @else {
+        <div class="assignments-list">
+          @for (assignment of assignments; track assignment.id) {
+            <div class="assignment-row" [class.completed]="assignment.completed_at">
+              @if (assignment.completed_at) {
+                <div class="checkbox checked">
+                  <mat-icon>check</mat-icon>
+                </div>
+              } @else {
+                <div class="checkbox" (click)="onComplete(assignment.id)"></div>
+              }
+              <div class="assignment-info">
+                <span class="assignment-name">{{ assignment.chore_name }}</span>
+                <span class="assigned-to">{{ assignment.assigned_to_name }}</span>
+              </div>
+            </div>
+          }
+        </div>
+      }
     </div>
 
     <div class="content-card">

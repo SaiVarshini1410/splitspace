@@ -78,6 +78,115 @@
   }
 }
 
+.section {
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  color: var(--ss-text);
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.assignments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.assignment-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--ss-surface);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  border: 0.5px solid transparent;
+  transition: all 0.15s;
+
+  &:hover {
+    border-color: var(--ss-border);
+  }
+
+  &.completed {
+    opacity: 0.5;
+
+    .assignment-name {
+      text-decoration: line-through;
+    }
+  }
+}
+
+.assignment-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.checkbox {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 1.5px solid var(--ss-border);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.15s;
+
+  &:hover {
+    border-color: var(--ss-primary);
+  }
+
+  &.checked {
+    background-color: var(--ss-primary);
+    border-color: var(--ss-primary);
+    cursor: default;
+
+    mat-icon {
+      font-size: 14px;
+      width: 14px;
+      height: 14px;
+      color: white;
+    }
+  }
+}
+
+.assignment-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .assignment-name {
+    color: var(--ss-text);
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .assignment-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .assigned-to {
+      color: var(--ss-muted);
+      font-size: 12px;
+
+      &.is-you {
+        color: var(--ss-primary);
+      }
+    }
+
+    .assignment-frequency {
+      color: var(--ss-muted);
+      font-size: 12px;
+      text-transform: capitalize;
+    }
+  }
+}
+
 .chores-list {
   display: flex;
   flex-direction: column;
@@ -176,7 +285,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 3rem 1rem;
+  padding: 2rem 1rem;
   text-align: center;
 
   mat-icon {
