@@ -6,8 +6,8 @@
     </div>
     @if (household?.inviteCode) {
       <div class="invite-code" (click)="copyInviteCode()">
-        <mat-icon>content_copy</mat-icon>
-        <span>Invite: {{ household?.inviteCode }}</span>
+        <mat-icon>{{ inviteCopied ? 'check' : 'content_copy' }}</mat-icon>
+        <span>{{ inviteCopied ? 'Copied!' : 'Invite: ' + household?.inviteCode }}</span>
       </div>
     }
   </div>

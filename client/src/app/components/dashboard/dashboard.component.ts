@@ -16,6 +16,7 @@ export class DashboardComponent implements OnInit {
   household: Household | null = null;
   assignments: ChoreAssignment[] = [];
   myIncompleteCount: number = 0;
+  inviteCopied: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -32,7 +33,6 @@ export class DashboardComponent implements OnInit {
       },
     });
 
-    // Generate assignments then load today's
     this.choreService.generate().subscribe({
       next: () => this.loadAssignments(),
       error: () => this.loadAssignments(),
@@ -76,6 +76,10 @@ export class DashboardComponent implements OnInit {
   copyInviteCode(): void {
     if (this.household?.inviteCode) {
       navigator.clipboard.writeText(this.household.inviteCode);
+      this.inviteCopied = true;
+      setTimeout(() => {
+        this.inviteCopied = false;
+      }, 2000);
     }
   }
 }
