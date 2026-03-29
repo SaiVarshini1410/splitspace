@@ -1,1 +1,33 @@
-<p>join-household works!</p>
+<div class="join-container">
+  <div class="join-card">
+    <div class="logo-section">
+      <div class="logo-icon">
+        <span>→</span>
+      </div>
+      <h2>Join a household</h2>
+      <p>Enter the invite code from your roommate</p>
+    </div>
+
+    <form [formGroup]="joinForm" (ngSubmit)="onJoin()">
+      <mat-form-field appearance="outline">
+        <mat-label>Invite Code</mat-label>
+        <input matInput formControlName="inviteCode" placeholder="e.g. A3F8B2C1" />
+        @if (joinForm.get('inviteCode')?.hasError('required') && joinForm.get('inviteCode')?.touched) {
+          <mat-error>Invite code is required</mat-error>
+        }
+      </mat-form-field>
+
+      @if (errorMessage) {
+        <p class="error-message">{{ errorMessage }}</p>
+      }
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="joinForm.invalid">
+        Join Household
+      </button>
+    </form>
+
+    <div class="back-link">
+      <p><a routerLink="/household-setup">← Back to options</a></p>
+    </div>
+  </div>
+</div>

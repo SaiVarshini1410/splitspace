@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../services/auth.service';
+import { HouseholdService } from '../../services/household.service';
 
 @Component({
   selector: 'app-signup',
@@ -31,6 +32,7 @@ export class SignupComponent {
 
   constructor(
     private authService: AuthService,
+    private householdService: HouseholdService,
     private router: Router
   ) {}
 
@@ -49,9 +51,9 @@ export class SignupComponent {
       const { name, email, password } = this.signupForm.value;
 
       this.authService.signup(name!, email!, password!).subscribe({
-        next: (response) => {
-          console.log('Signup successful:', response);
-          this.router.navigate(['/dashboard']);
+        next: () => {
+          // New user — always go to household setup
+          this.router.navigate(['/household-setup']);
         },
         error: (error) => {
           this.errorMessage = error.error.message || 'Signup failed. Try again.';

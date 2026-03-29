@@ -1,1 +1,33 @@
-<p>create-household works!</p>
+<div class="create-container">
+  <div class="create-card">
+    <div class="logo-section">
+      <div class="logo-icon">
+        <span>+</span>
+      </div>
+      <h2>Create your household</h2>
+      <p>Give your shared space a name</p>
+    </div>
+
+    <form [formGroup]="createForm" (ngSubmit)="onCreate()">
+      <mat-form-field appearance="outline">
+        <mat-label>Household Name</mat-label>
+        <input matInput formControlName="name" placeholder="e.g. Apartment 4B" />
+        @if (createForm.get('name')?.hasError('required') && createForm.get('name')?.touched) {
+          <mat-error>Name is required</mat-error>
+        }
+      </mat-form-field>
+
+      @if (errorMessage) {
+        <p class="error-message">{{ errorMessage }}</p>
+      }
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="createForm.invalid">
+        Create Household
+      </button>
+    </form>
+
+    <div class="back-link">
+      <p><a routerLink="/household-setup">← Back to options</a></p>
+    </div>
+  </div>
+</div>
