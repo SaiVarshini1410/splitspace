@@ -1,0 +1,38 @@
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <div class="logo-icon">
+      <svg width="20" height="20" viewBox="0 0 30 30" fill="none">
+        <path d="M15 3L3 13h4v12h7V18h2v7h7V13h4L15 3z" fill="white" opacity="0.95"/>
+        <line x1="15" y1="8" x2="15" y2="25" stroke="#e8723a" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="header-text">
+      <span class="app-name">SplitSpace</span>
+      <span class="household-name">{{ household?.name || 'Loading...' }}</span>
+    </div>
+  </div>
+
+  <nav class="nav-items">
+    @for (item of navItems; track item.route) {
+      <a [routerLink]="item.route" routerLinkActive="active" class="nav-item">
+        <mat-icon>{{ item.icon }}</mat-icon>
+        <span>{{ item.label }}</span>
+      </a>
+    }
+  </nav>
+
+  <div class="sidebar-footer">
+    @if (user) {
+      <div class="user-info">
+        <div class="avatar">{{ getInitials(user.name) }}</div>
+        <div class="user-details">
+          <span class="user-name">{{ user.name }}</span>
+          <span class="user-role">{{ household?.role || '' }}</span>
+        </div>
+      </div>
+      <button class="logout-btn" (click)="onLogout()">
+        <mat-icon>logout</mat-icon>
+      </button>
+    }
+  </div>
+</aside>

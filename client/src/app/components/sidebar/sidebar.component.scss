@@ -1,0 +1,145 @@
+.sidebar {
+  width: 220px;
+  height: 100vh;
+  background-color: var(--ss-surface);
+  border-right: 0.5px solid var(--ss-border);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 2rem;
+
+  .logo-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background-color: var(--ss-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .header-text {
+    display: flex;
+    flex-direction: column;
+
+    .app-name {
+      color: var(--ss-text);
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .household-name {
+      color: var(--ss-muted);
+      font-size: 11px;
+    }
+  }
+}
+
+.nav-items {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: var(--ss-text-secondary);
+  font-size: 13px;
+  text-decoration: none;
+  transition: all 0.15s;
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+
+  &:hover {
+    background-color: var(--ss-surface-light);
+    color: var(--ss-text);
+  }
+
+  &.active {
+    background-color: var(--ss-surface-light);
+    color: var(--ss-primary);
+  }
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  border-top: 0.5px solid var(--ss-border);
+  padding-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: var(--ss-surface-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ss-primary);
+    font-size: 12px;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  .user-details {
+    display: flex;
+    flex-direction: column;
+
+    .user-name {
+      color: var(--ss-text);
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .user-role {
+      color: var(--ss-muted);
+      font-size: 11px;
+      text-transform: capitalize;
+    }
+  }
+
+  .logout-btn {
+    background: none;
+    border: none;
+    color: var(--ss-muted);
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    transition: color 0.15s;
+
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+    }
+
+    &:hover {
+      color: var(--ss-error);
+    }
+  }
+}

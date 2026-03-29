@@ -1,1 +1,62 @@
-<p>dashboard works!</p>
+<div class="dashboard">
+  <div class="dashboard-header">
+    <div>
+      <h1>Dashboard</h1>
+      <p class="welcome">Welcome back, {{ user?.name?.split(' ')[0] }}</p>
+    </div>
+    @if (household?.inviteCode) {
+      <div class="invite-code" (click)="copyInviteCode()">
+        <mat-icon>content_copy</mat-icon>
+        <span>Invite: {{ household?.inviteCode }}</span>
+      </div>
+    }
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <span class="stat-label">Your chores today</span>
+      <span class="stat-value">0</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-label">You're owed</span>
+      <span class="stat-value success">$0.00</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-label">Low stock items</span>
+      <span class="stat-value primary">0</span>
+    </div>
+  </div>
+
+  <div class="content-grid">
+    <div class="content-card">
+      <h3>Today's chores</h3>
+      <div class="empty-state">
+        <mat-icon>task_alt</mat-icon>
+        <p>No chores assigned yet</p>
+        <span>Create chores in the Chores section</span>
+      </div>
+    </div>
+
+    <div class="content-card">
+      <h3>Household members</h3>
+      @if (household?.members) {
+        <div class="members-list">
+          @for (member of household?.members || []; track member.id) {
+            <div class="member-row">
+              <div class="member-avatar">{{ getInitials(member.name) }}</div>
+              <div class="member-info">
+                <span class="member-name">{{ member.name }}</span>
+                <span class="member-role">{{ member.role }}</span>
+              </div>
+            </div>
+          }
+        </div>
+      } @else {
+        <div class="empty-state">
+          <mat-icon>group</mat-icon>
+          <p>Loading members...</p>
+        </div>
+      }
+    </div>
+  </div>
+</div>
