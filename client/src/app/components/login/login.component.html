@@ -1,0 +1,46 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="logo-section">
+      <div class="logo-icon">
+        <span>S</span>
+      </div>
+      <h2>Welcome to SplitSpace</h2>
+      <p>Login to your account</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" />
+        @if (loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched) {
+          <mat-error>Email is required</mat-error>
+        }
+        @if (loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched) {
+          <mat-error>Enter a valid email</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" type="password" />
+        @if (loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched) {
+          <mat-error>Password is required</mat-error>
+        }
+        @if (loginForm.get('password')?.hasError('minlength') && loginForm.get('password')?.touched) {
+          <mat-error>Password must be at least 6 characters</mat-error>
+        }
+      </mat-form-field>
+
+      @if (errorMessage) {
+          <p class="error-message">{{ errorMessage }}</p>
+        }
+      <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">
+        Login
+      </button>
+    </form>
+
+    <div class="signup-link">
+      <p>Don't have an account? <a routerLink="/signup">Sign up</a></p>
+    </div>
+  </div>
+</div>

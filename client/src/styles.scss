@@ -1,0 +1,74 @@
+@use '@angular/material' as mat;
+
+// === SPLITSPACE EMBER THEME ===
+
+// Define our custom theme
+$splitspace-theme: mat.define-theme((
+  color: (
+    theme-type: dark,
+    primary: mat.$orange-palette,
+  ),
+));
+
+// Apply Material theme
+html {
+  @include mat.all-component-themes($splitspace-theme);
+}
+
+// === OUR CUSTOM DESIGN TOKENS ===
+
+:root {
+  --ss-bg: #1a1210;
+  --ss-surface: #2a1f1a;
+  --ss-surface-light: #3a2c22;
+  --ss-primary: #e8723a;
+  --ss-primary-light: #f09060;
+  --ss-accent: #f5b87a;
+  --ss-muted: #9a8478;
+  --ss-text: #f2e8e0;
+  --ss-text-secondary: #c4b0a0;
+  --ss-input-bg: #352820;
+  --ss-border: #4a3828;
+  --ss-error: #e05555;
+  --ss-success: #2ec4a0;
+}
+
+// === GLOBAL RESETS ===
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  background-color: var(--ss-bg);
+  color: var(--ss-text);
+  font-family: 'Roboto', sans-serif;
+  height: 100%;
+  overflow: hidden;
+}
+
+a {
+  color: var(--ss-primary);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--ss-primary-light);
+  }
+}
+
+// === ANGULAR MATERIAL OVERRIDES ===
+
+// Style all Material form fields to match our theme
+.mat-mdc-form-field {
+  width: 100%;
+}
+
+.mdc-text-field--outlined {
+  --mdc-outlined-text-field-container-shape: 10px !important;
+}
+
+.mat-mdc-raised-button.mat-primary {
+  border-radius: 10px !important;
+}

@@ -1,0 +1,68 @@
+<div class="signup-container">
+  <div class="signup-card">
+    <div class="logo-section">
+      <div class="logo-icon">
+        <span>S</span>
+      </div>
+      <h2>Create your account</h2>
+      <p>Start managing your shared space</p>
+    </div>
+
+    <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
+      <mat-form-field appearance="outline">
+        <mat-label>Full Name</mat-label>
+        <input matInput formControlName="name" />
+        @if (signupForm.get('name')?.hasError('required') && signupForm.get('name')?.touched) {
+          <mat-error>Name is required</mat-error>
+        }
+        @if (signupForm.get('name')?.hasError('minlength') && signupForm.get('name')?.touched) {
+          <mat-error>Name must be at least 2 characters</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" />
+        @if (signupForm.get('email')?.hasError('required') && signupForm.get('email')?.touched) {
+          <mat-error>Email is required</mat-error>
+        }
+        @if (signupForm.get('email')?.hasError('email') && signupForm.get('email')?.touched) {
+          <mat-error>Enter a valid email</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" type="password" />
+        @if (signupForm.get('password')?.hasError('required') && signupForm.get('password')?.touched) {
+          <mat-error>Password is required</mat-error>
+        }
+        @if (signupForm.get('password')?.hasError('minlength') && signupForm.get('password')?.touched) {
+          <mat-error>Password must be at least 6 characters</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Confirm Password</mat-label>
+        <input matInput formControlName="confirmPassword" type="password" />
+        @if (signupForm.get('confirmPassword')?.hasError('required') && signupForm.get('confirmPassword')?.touched) {
+          <mat-error>Please confirm your password</mat-error>
+        }
+        @if (signupForm.hasError('passwordMismatch') && signupForm.get('confirmPassword')?.touched) {
+          <mat-error>Passwords don't match</mat-error>
+        }
+      </mat-form-field>
+
+      @if (errorMessage) {
+          <p class="error-message">{{ errorMessage }}</p>
+        }
+      <button mat-raised-button color="primary" type="submit" [disabled]="signupForm.invalid">
+        Create Account
+      </button>
+    </form>
+
+    <div class="login-link">
+      <p>Already have an account? <a routerLink="/login">Login</a></p>
+    </div>
+  </div>
+</div>

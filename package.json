@@ -1,0 +1,17 @@
+{
+  "name": "splitspace",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "client": "cd client && ng serve",
+    "server": "cd server && npm run dev",
+    "dev": "concurrently \"npm run client\" \"npm run server\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
