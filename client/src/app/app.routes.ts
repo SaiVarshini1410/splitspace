@@ -7,6 +7,7 @@ import { JoinHouseholdComponent } from './components/join-household/join-househo
 import { LayoutComponent } from './components/layout/layout.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ChoresComponent } from './components/chores/chores.component';
+import { ExpensesComponent } from './components/expenses/expenses.component';
 import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
@@ -23,6 +24,7 @@ export const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'chores', component: ChoresComponent },
+      { path: 'expenses', component: ExpensesComponent },
     ],
   },
 ];

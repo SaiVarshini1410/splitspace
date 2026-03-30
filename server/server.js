@@ -5,6 +5,7 @@ const pool = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 const householdRoutes = require('./routes/householdRoutes');
 const choreRoutes = require('./routes/choreRoutes');
+const expenseRoutes = require('./routes/expenseRoutes');
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/household', householdRoutes);
 app.use('/api/chores', choreRoutes);
+app.use('/api/expenses', expenseRoutes);
 
 // Test route
 app.get('/', (req, res) => {

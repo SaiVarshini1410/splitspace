@@ -1,0 +1,384 @@
+.expenses-page {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+
+  h1 {
+    color: var(--ss-text);
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 2px;
+  }
+
+  .subtitle {
+    color: var(--ss-muted);
+    font-size: 13px;
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 10px;
+
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+.create-form-card {
+  background-color: var(--ss-surface);
+  border-radius: 10px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  border: 0.5px solid var(--ss-border);
+
+  h3 {
+    color: var(--ss-text);
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .form-row {
+    width: 100%;
+
+    &.two-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+  }
+
+  .split-info {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--ss-muted);
+    font-size: 13px;
+    margin-bottom: 0.5rem;
+
+    mat-icon {
+      font-size: 16px;
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  button[mat-raised-button] {
+    align-self: flex-start;
+    border-radius: 10px;
+    padding: 20px 32px;
+    font-size: 14px;
+  }
+
+  .error-message {
+    color: var(--ss-error);
+    font-size: 13px;
+  }
+}
+
+.top-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.stat-card {
+  background-color: var(--ss-surface);
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  .stat-label {
+    color: var(--ss-muted);
+    font-size: 12px;
+  }
+
+  .stat-value {
+    color: var(--ss-text);
+    font-size: 22px;
+    font-weight: 500;
+  }
+
+  .stat-hint {
+    color: var(--ss-muted);
+    font-size: 12px;
+  }
+}
+
+.settle-card {
+  background-color: var(--ss-surface);
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.settled-state {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 100%;
+  color: var(--ss-success);
+  font-size: 14px;
+
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.debt-section {
+  margin-bottom: 12px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.debt-section-label {
+  display: block;
+  color: var(--ss-muted);
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.debt-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  background-color: var(--ss-surface-light);
+  border-radius: 8px;
+  margin-bottom: 6px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.debt-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .debt-name {
+    color: var(--ss-text);
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .debt-amount {
+    font-size: 14px;
+    font-weight: 500;
+  }
+}
+
+.debt-row.owe .debt-amount {
+  color: var(--ss-error);
+}
+
+.debt-row.owed .debt-amount {
+  color: var(--ss-success);
+}
+
+.settle-btn {
+  background-color: var(--ss-primary);
+  border: none;
+  border-radius: 6px;
+  padding: 4px 12px;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+
+  &:hover {
+    opacity: 0.85;
+  }
+}
+
+.pending-badge {
+  color: var(--ss-muted);
+  font-size: 12px;
+  padding: 4px 10px;
+  background-color: var(--ss-surface);
+  border-radius: 6px;
+}
+
+.section {
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  color: var(--ss-text);
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.expenses-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.expense-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--ss-surface);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  border: 0.5px solid transparent;
+  transition: border-color 0.15s;
+
+  &:hover {
+    border-color: var(--ss-border);
+  }
+}
+
+.expense-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.category-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: var(--ss-surface-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    color: var(--ss-primary);
+  }
+}
+
+.expense-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .expense-description {
+    color: var(--ss-text);
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .expense-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .expense-category {
+      color: var(--ss-primary);
+      font-size: 12px;
+    }
+
+    .expense-date {
+      color: var(--ss-muted);
+      font-size: 12px;
+    }
+  }
+}
+
+.expense-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.expense-amount-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+
+  .expense-amount {
+    color: var(--ss-text);
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .expense-payer {
+    color: var(--ss-muted);
+    font-size: 12px;
+
+    &.you-paid {
+      color: var(--ss-success);
+    }
+  }
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  color: var(--ss-muted);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  transition: color 0.15s;
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+
+  &:hover {
+    color: var(--ss-error);
+  }
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+  text-align: center;
+
+  mat-icon {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+    color: var(--ss-muted);
+    margin-bottom: 8px;
+  }
+
+  p {
+    color: var(--ss-text-secondary);
+    font-size: 13px;
+    margin-bottom: 2px;
+  }
+
+  span {
+    color: var(--ss-muted);
+    font-size: 12px;
+  }
+}

@@ -161,9 +161,11 @@ const generateAssignments = async (req, res) => {
         // Never assigned — create first assignment
         needsAssignment = true;
       } else {
-        const lastDate = new Date(lastAssignment[0].due_date);
-        const todayDate = new Date(today);
-        const daysSince = Math.floor((todayDate - lastDate) / (1000 * 60 * 60 * 24));
+        const lastDateStr = new Date(lastAssignment[0].due_date).toISOString().split('T')[0];
+        const daysSince = Math.floor(
+          (new Date(today + 'T00:00:00Z') - new Date(lastDateStr + 'T00:00:00Z')) / (1000 * 60 * 60 * 24)
+        );
+
 
         // Check frequency
         const intervals = { daily: 1, weekly: 7, biweekly: 14, monthly: 30 };

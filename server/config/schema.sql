@@ -59,3 +59,28 @@ CREATE TABLE chore_assignments (
   FOREIGN KEY (chore_id) REFERENCES chores(id),
   FOREIGN KEY (assigned_to) REFERENCES users(id)
 );
+
+CREATE TABLE expenses (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  household_id INT NOT NULL,
+  paid_by INT NOT NULL,
+  amount DECIMAL(10,2) NOT NULL,
+  description VARCHAR(255) NOT NULL,
+  category ENUM('rent', 'utilities', 'groceries', 'supplies', 'food', 'transport', 'entertainment', 'other') DEFAULT 'other',
+  split_type ENUM('equal', 'custom') DEFAULT 'equal',
+  date DATE NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (household_id) REFERENCES households(id),
+  FOREIGN KEY (paid_by) REFERENCES users(id)
+);
+
+CREATE TABLE expense_splits (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  expense_id INT NOT NULL,
+  user_id INT NOT NULL,
+  share_amount DECIMAL(10,2) NOT NULL,
+  settled BOOLEAN DEFAULT FALSE,
+  settled_at TIMESTAMP NULL,
+  FOREIGN KEY (expense_id) REFERENCES expenses(id),
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
