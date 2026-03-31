@@ -1,0 +1,109 @@
+<div class="rules-page">
+  <div class="page-header">
+    <div>
+      <h1>House rules</h1>
+      <p class="subtitle">Agreements everyone lives by</p>
+    </div>
+    <button mat-raised-button color="primary" (click)="toggleForm()">
+      <mat-icon>{{ showForm ? 'close' : 'add' }}</mat-icon>
+      {{ showForm ? 'Cancel' : 'Add Rule' }}
+    </button>
+  </div>
+
+  @if (showForm) {
+    <div class="create-form-card">
+      <h3>{{ editingRuleId ? 'Edit rule' : 'Create a new rule' }}</h3>
+      @if (editingRuleId) {
+        <p class="edit-warning">
+          <mat-icon>warning</mat-icon>
+          Editing will reset all agreements — everyone must re-agree
+        </p>
+      }
+      <form [formGroup]="ruleForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline">
+          <mat-label>Rule title</mat-label>
+          <input matInput formControlName="title" placeholder="e.g. Quiet hours" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="description" rows="3" placeholder="Describe the rule in detail..."></textarea>
+        </mat-form-field>
+
+        @if (errorMessage) {
+          <p class="error-message">{{ errorMessage }}</p>
+        }
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="ruleForm.invalid">
+          {{ editingRuleId ? 'Update Rule' : 'Create Rule' }}
+        </button>
+      </form>
+    </div>
+  }
+
+  <div class="rules-list">
+    @if (rules.length === 0) {
+      <div class="empty-state">
+        <mat-icon>gavel</mat-icon>
+        <p>No house rules yet</p>
+        <span>Click "Add Rule" to set the first ground rule</span>
+      </div>
+    } @else {
+      @for (rule of rules; track rule.id) {
+        <div class="rule-card">
+          <div class="rule-header">
+            <div class="rule-title-section">
+              <h3>{{ rule.title }}</h3>
+              <span class="rule-version">v{{ rule.version }}</span>
+            </div>
+            <div class="rule-actions">
+              <button class="action-btn" (click)="startEdit(rule)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button class="action-btn delete" (click)="onDelete(rule.id)">
+                <mat-icon>delete_outline</mat-icon>
+              </button>
+            </div>
+          </div>
+
+          <p class="rule-description">{{ rule.description }}</p>
+
+          <div class="rule-footer">
+            <div class="agreement-status">
+              <div class="agreement-bar">
+                <div class="agreement-fill" [style.width.%]="(getAgreedCount(rule) / totalMembers) * 100"></div>
+              </div>
+              <span class="agreement-text">{{ getAgreedCount(rule) }} of {{ totalMembers }} agreed</span>
+            </div>
+
+            <div class="agreement-actions">
+              @if (hasAgreed(rule)) {
+                <span class="agreed-badge">
+                  <mat-icon>check_circle</mat-icon>
+                  You agreed
+                </span>
+              } @else {
+                <button class="agree-btn" (click)="onAgree(rule.id)">
+                  <mat-icon>handshake</mat-icon>
+                  Agree
+                </button>
+              }
+            </div>
+          </div>
+
+          @if (rule.agreements.length > 0) {
+            <div class="agreements-list">
+              @for (agreement of rule.agreements; track agreement.user_id) {
+                <span class="agreement-chip">{{ agreement.name }}</span>
+              }
+            </div>
+          }
+
+          <div class="rule-meta">
+            <span>Added by {{ rule.created_by_name }}</span>
+          </div>
+        </div>
+      }
+    }
+  </div>
+</div>

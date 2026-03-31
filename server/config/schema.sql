@@ -97,3 +97,26 @@ CREATE TABLE inventory_items (
   FOREIGN KEY (household_id) REFERENCES households(id),
   FOREIGN KEY (last_updated_by) REFERENCES users(id)
 );
+
+CREATE TABLE house_rules (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  household_id INT NOT NULL,
+  title VARCHAR(200) NOT NULL,
+  description TEXT NOT NULL,
+  version INT DEFAULT 1,
+  created_by INT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (household_id) REFERENCES households(id),
+  FOREIGN KEY (created_by) REFERENCES users(id)
+);
+
+CREATE TABLE rule_agreements (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  rule_id INT NOT NULL,
+  user_id INT NOT NULL,
+  agreed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (rule_id) REFERENCES house_rules(id),
+  FOREIGN KEY (user_id) REFERENCES users(id),
+  UNIQUE KEY unique_agreement (rule_id, user_id)
+);
