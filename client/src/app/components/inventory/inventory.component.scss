@@ -1,0 +1,285 @@
+.inventory-page {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+
+  h1 {
+    color: var(--ss-text);
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 2px;
+  }
+
+  .subtitle {
+    color: var(--ss-muted);
+    font-size: 13px;
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 10px;
+
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+.create-form-card {
+  background-color: var(--ss-surface);
+  border-radius: 10px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  border: 0.5px solid var(--ss-border);
+
+  h3 {
+    color: var(--ss-text);
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .form-row {
+    width: 100%;
+
+    &.two-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+  }
+
+  button[mat-raised-button] {
+    align-self: flex-start;
+    border-radius: 10px;
+    padding: 20px 32px;
+    font-size: 14px;
+  }
+
+  .error-message {
+    color: var(--ss-error);
+    font-size: 13px;
+  }
+}
+
+.stats-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.mini-stat {
+  background-color: var(--ss-surface);
+  border-radius: 10px;
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .mini-stat-value {
+    font-size: 18px;
+    font-weight: 500;
+
+    &.stocked {
+      color: var(--ss-success);
+    }
+
+    &.low {
+      color: var(--ss-primary);
+    }
+
+    &.out {
+      color: var(--ss-error);
+    }
+  }
+
+  .mini-stat-label {
+    color: var(--ss-muted);
+    font-size: 12px;
+  }
+}
+
+.items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.item-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--ss-surface);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  border-left: 3px solid transparent;
+  transition: all 0.15s;
+
+  &.status-low {
+    border-left-color: var(--ss-primary);
+  }
+
+  &.status-out {
+    border-left-color: var(--ss-error);
+  }
+}
+
+.item-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.category-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: var(--ss-surface-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    color: var(--ss-primary);
+  }
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .item-name {
+    color: var(--ss-text);
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .item-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .item-category {
+      color: var(--ss-primary);
+      font-size: 12px;
+    }
+
+    .item-updated {
+      color: var(--ss-muted);
+      font-size: 12px;
+    }
+  }
+}
+
+.item-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.status-toggle {
+  display: flex;
+  gap: 4px;
+  background-color: var(--ss-surface-light);
+  border-radius: 8px;
+  padding: 3px;
+}
+
+.status-btn {
+  background: none;
+  border: none;
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--ss-muted);
+  transition: all 0.15s;
+
+  &:hover {
+    color: var(--ss-text);
+  }
+
+  &.active.stocked {
+    background-color: var(--ss-success);
+    color: white;
+  }
+
+  &.active.low {
+    background-color: var(--ss-primary);
+    color: white;
+  }
+
+  &.active.out {
+    background-color: var(--ss-error);
+    color: white;
+  }
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  color: var(--ss-muted);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  transition: color 0.15s;
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+
+  &:hover {
+    color: var(--ss-error);
+  }
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem 1rem;
+  text-align: center;
+
+  mat-icon {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+    color: var(--ss-muted);
+    margin-bottom: 8px;
+  }
+
+  p {
+    color: var(--ss-text-secondary);
+    font-size: 13px;
+    margin-bottom: 2px;
+  }
+
+  span {
+    color: var(--ss-muted);
+    font-size: 12px;
+  }
+}

@@ -19,11 +19,11 @@
     </div>
     <div class="stat-card">
       <span class="stat-label">You're owed</span>
-      <span class="stat-value success">$0.00</span>
+      <span class="stat-value success">${{ amountOwed.toFixed(2) }}</span>
     </div>
     <div class="stat-card">
       <span class="stat-label">Low stock items</span>
-      <span class="stat-value primary">0</span>
+      <span class="stat-value" [class.primary]="lowStockCount > 0">{{ lowStockCount }}</span>
     </div>
   </div>
 

@@ -8,6 +8,7 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ChoresComponent } from './components/chores/chores.component';
 import { ExpensesComponent } from './components/expenses/expenses.component';
+import { InventoryComponent } from './components/inventory/inventory.component';
 import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
@@ -25,6 +26,7 @@ export const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'chores', component: ChoresComponent },
       { path: 'expenses', component: ExpensesComponent },
+      { path: 'inventory', component: InventoryComponent },
     ],
   },
 ];

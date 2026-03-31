@@ -1,0 +1,103 @@
+<div class="inventory-page">
+  <div class="page-header">
+    <div>
+      <h1>Inventory</h1>
+      <p class="subtitle">Track household supplies and essentials</p>
+    </div>
+    <button mat-raised-button color="primary" (click)="toggleForm()">
+      <mat-icon>{{ showForm ? 'close' : 'add' }}</mat-icon>
+      {{ showForm ? 'Cancel' : 'Add Item' }}
+    </button>
+  </div>
+
+  @if (showForm) {
+    <div class="create-form-card">
+      <h3>Add a new item</h3>
+      <form [formGroup]="itemForm" (ngSubmit)="onCreate()">
+        <div class="form-row two-columns">
+          <mat-form-field appearance="outline">
+            <mat-label>Item name</mat-label>
+            <input matInput formControlName="name" placeholder="e.g. Dish soap, Toilet paper" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Category</mat-label>
+            <mat-select formControlName="category">
+              @for (option of categoryOptions; track option.value) {
+                <mat-option [value]="option.value">{{ option.label }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        @if (errorMessage) {
+          <p class="error-message">{{ errorMessage }}</p>
+        }
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="itemForm.invalid">
+          Add Item
+        </button>
+      </form>
+    </div>
+  }
+
+  <div class="stats-row">
+    <div class="mini-stat">
+      <span class="mini-stat-value stocked">{{ getStockedCount() }}</span>
+      <span class="mini-stat-label">Stocked</span>
+    </div>
+    <div class="mini-stat">
+      <span class="mini-stat-value low">{{ getLowCount() }}</span>
+      <span class="mini-stat-label">Running low</span>
+    </div>
+    <div class="mini-stat">
+      <span class="mini-stat-value out">{{ getOutCount() }}</span>
+      <span class="mini-stat-label">Out of stock</span>
+    </div>
+  </div>
+
+  <div class="items-list">
+    @if (items.length === 0) {
+      <div class="empty-state">
+        <mat-icon>inventory_2</mat-icon>
+        <p>No items tracked yet</p>
+        <span>Click "Add Item" to start tracking household supplies</span>
+      </div>
+    } @else {
+      @for (item of items; track item.id) {
+        <div class="item-card" [class.status-low]="item.status === 'low'" [class.status-out]="item.status === 'out'">
+          <div class="item-left">
+            <div class="category-icon">
+              <mat-icon>{{ getCategoryIcon(item.category) }}</mat-icon>
+            </div>
+            <div class="item-info">
+              <span class="item-name">{{ item.name }}</span>
+              <div class="item-meta">
+                <span class="item-category">{{ getCategoryLabel(item.category) }}</span>
+                <span class="item-updated">Updated by {{ item.updated_by_name }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="item-right">
+            <div class="status-toggle">
+              @for (option of statusOptions; track option.value) {
+                <button
+                  class="status-btn"
+                  [class.active]="item.status === option.value"
+                  [class.stocked]="option.value === 'stocked'"
+                  [class.low]="option.value === 'low'"
+                  [class.out]="option.value === 'out'"
+                  (click)="onStatusChange(item.id, option.value)">
+                  {{ option.label }}
+                </button>
+              }
+            </div>
+            <button class="delete-btn" (click)="onDelete(item.id)">
+              <mat-icon>delete_outline</mat-icon>
+            </button>
+          </div>
+        </div>
+      }
+    }
+  </div>
+</div>

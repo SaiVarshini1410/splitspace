@@ -3,6 +3,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../services/auth.service';
 import { HouseholdService, Household } from '../../services/household.service';
 import { ChoreService, ChoreAssignment } from '../../services/chore.service';
+import { ExpenseService } from '../../services/expense.service';
+import { InventoryService } from '../../services/inventory.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,11 +19,15 @@ export class DashboardComponent implements OnInit {
   assignments: ChoreAssignment[] = [];
   myIncompleteCount: number = 0;
   inviteCopied: boolean = false;
+  amountOwed: number = 0;
+  lowStockCount: number = 0;
 
   constructor(
     private authService: AuthService,
     private householdService: HouseholdService,
-    private choreService: ChoreService
+    private choreService: ChoreService,
+    private expenseService: ExpenseService,
+    private inventoryService: InventoryService
   ) {}
 
   ngOnInit(): void {
@@ -36,6 +42,18 @@ export class DashboardComponent implements OnInit {
     this.choreService.generate().subscribe({
       next: () => this.loadAssignments(),
       error: () => this.loadAssignments(),
+    });
+
+    this.expenseService.getMyDebts().subscribe({
+      next: (response) => {
+        this.amountOwed = response.owedToMe.reduce((sum, d) => sum + d.amount, 0);
+      },
+    });
+
+    this.inventoryService.getLowCount().subscribe({
+      next: (response) => {
+        this.lowStockCount = response.count;
+      },
     });
   }
 

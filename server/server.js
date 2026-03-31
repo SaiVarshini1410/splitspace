@@ -6,6 +6,7 @@ const authRoutes = require('./routes/authRoutes');
 const householdRoutes = require('./routes/householdRoutes');
 const choreRoutes = require('./routes/choreRoutes');
 const expenseRoutes = require('./routes/expenseRoutes');
+const inventoryRoutes = require('./routes/inventoryRoutes');
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/household', householdRoutes);
 app.use('/api/chores', choreRoutes);
 app.use('/api/expenses', expenseRoutes);
+app.use('/api/inventory', inventoryRoutes);
 
 // Test route
 app.get('/', (req, res) => {

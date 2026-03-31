@@ -84,3 +84,16 @@ CREATE TABLE expense_splits (
   FOREIGN KEY (expense_id) REFERENCES expenses(id),
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
+
+CREATE TABLE inventory_items (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  household_id INT NOT NULL,
+  name VARCHAR(150) NOT NULL,
+  category ENUM('cleaning', 'toiletries', 'kitchen', 'pantry', 'other') DEFAULT 'other',
+  status ENUM('stocked', 'low', 'out') DEFAULT 'stocked',
+  last_updated_by INT NOT NULL,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (household_id) REFERENCES households(id),
+  FOREIGN KEY (last_updated_by) REFERENCES users(id)
+);
